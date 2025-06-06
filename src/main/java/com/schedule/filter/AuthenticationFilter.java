@@ -1,0 +1,50 @@
+package com.schedule.filter;
+
+// filepath: d:\0PROJECTS\BTBU-INCLASS\lessonCalendarShixun3\src\main\java\com\schedule\filter\AuthenticationFilter.java
+
+
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+// import javax.servlet.http.HttpServletResponse;
+import java.util.logging.Logger;
+
+/**
+ * 身份验证过滤器
+ * 阶段一版本：仅记录请求，不执行实际身份验证
+ * 阶段二将实现完整的身份验证逻辑
+ */
+public class AuthenticationFilter implements Filter {
+    private static final Logger logger = Logger.getLogger(AuthenticationFilter.class.getName());
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        logger.info("AuthenticationFilter初始化完成 (阶段一测试版本)");
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        String uri = httpRequest.getRequestURI();
+        
+        // 阶段一：仅记录请求，不执行实际验证
+        logger.info("阶段一测试版本 - 访问受保护资源: " + uri);
+        
+        // 允许所有请求通过（阶段一测试）
+        chain.doFilter(request, response);
+        
+        // 阶段二将在此处实现实际的身份验证逻辑
+    }
+
+    @Override
+    public void destroy() {
+        logger.info("AuthenticationFilter销毁");
+    }
+}
+
