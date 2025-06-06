@@ -112,54 +112,55 @@ if ($port8080) {
 }
 
 # 启动Tomcat
-Write-Host "`n启动Tomcat服务器..." -ForegroundColor Yellow
-$catalinaBat = Join-Path $tomcatPath "bin\startup.bat"
+# Community Server Connector提供了启动服务器的功能, 脚本仅作文件部署, 不再负责启动
+# Write-Host "`n启动Tomcat服务器..." -ForegroundColor Yellow
+# $catalinaBat = Join-Path $tomcatPath "bin\startup.bat"
 
-if (-not (Test-Path $catalinaBat)) {
-    Write-Host "错误: 未找到Tomcat启动脚本: $catalinaBat" -ForegroundColor Red
-    exit 1
-}
+# if (-not (Test-Path $catalinaBat)) {
+#     Write-Host "错误: 未找到Tomcat启动脚本: $catalinaBat" -ForegroundColor Red
+#     exit 1
+# }
 
-try {
-    Write-Host "执行启动命令: $catalinaBat" -ForegroundColor Gray
-    Start-Process cmd -ArgumentList "/c", $catalinaBat -WindowStyle Normal
+# try {
+#     Write-Host "执行启动命令: $catalinaBat" -ForegroundColor Gray
+#     Start-Process cmd -ArgumentList "/c", $catalinaBat -WindowStyle Normal
     
-    Write-Host "✓ Tomcat启动命令已执行" -ForegroundColor Green
-    Write-Host "等待服务器启动..." -ForegroundColor Yellow
+#     Write-Host "✓ Tomcat启动命令已执行" -ForegroundColor Green
+#     Write-Host "等待服务器启动..." -ForegroundColor Yellow
     
-    # 等待服务器启动
-    for ($i = 1; $i -le 30; $i++) {
-        Start-Sleep -Seconds 1
-        try {
-            $response = Invoke-WebRequest -Uri "http://localhost:8080" -TimeoutSec 2 -ErrorAction Stop
-            Write-Host "`n✅ Tomcat服务器启动成功！" -ForegroundColor Green
-            break
-        } catch {
-            Write-Host "." -NoNewline -ForegroundColor Gray
-            if ($i -eq 30) {
-                Write-Host "`n⚠️ Tomcat启动超时，请手动检查" -ForegroundColor Yellow
-            }
-        }
-    }
+#     # 等待服务器启动
+#     for ($i = 1; $i -le 30; $i++) {
+#         Start-Sleep -Seconds 1
+#         try {
+#             $response = Invoke-WebRequest -Uri "http://localhost:8080" -TimeoutSec 2 -ErrorAction Stop
+#             Write-Host "`n✅ Tomcat服务器启动成功！" -ForegroundColor Green
+#             break
+#         } catch {
+#             Write-Host "." -NoNewline -ForegroundColor Gray
+#             if ($i -eq 30) {
+#                 Write-Host "`n⚠️ Tomcat启动超时，请手动检查" -ForegroundColor Yellow
+#             }
+#         }
+#     }
     
-} catch {
-    Write-Host "错误: Tomcat启动失败: $($_.Exception.Message)" -ForegroundColor Red
-    exit 1
-}
+# } catch {
+#     Write-Host "错误: Tomcat启动失败: $($_.Exception.Message)" -ForegroundColor Red
+#     exit 1
+# }
 
-Write-Host "`n=====================================" -ForegroundColor Cyan
-Write-Host "Tomcat启动完成！" -ForegroundColor Green
-Write-Host "访问地址：" -ForegroundColor Cyan
-Write-Host "  Tomcat主页: http://localhost:8080" -ForegroundColor White
-Write-Host "  项目首页: http://localhost:8080/$webappName" -ForegroundColor White
-Write-Host "  项目首页: http://localhost:8080/$webappName/index.jsp" -ForegroundColor White
-Write-Host "`n管理界面：" -ForegroundColor Cyan  
-Write-Host "  Tomcat Manager: http://localhost:8080/manager" -ForegroundColor White
-Write-Host "=====================================" -ForegroundColor Cyan
+# Write-Host "`n=====================================" -ForegroundColor Cyan
+# Write-Host "Tomcat启动完成！" -ForegroundColor Green
+# Write-Host "访问地址：" -ForegroundColor Cyan
+# Write-Host "  Tomcat主页: http://localhost:8080" -ForegroundColor White
+# Write-Host "  项目首页: http://localhost:8080/$webappName" -ForegroundColor White
+# Write-Host "  项目首页: http://localhost:8080/$webappName/index.jsp" -ForegroundColor White
+# Write-Host "`n管理界面：" -ForegroundColor Cyan  
+# Write-Host "  Tomcat Manager: http://localhost:8080/manager" -ForegroundColor White
+# Write-Host "=====================================" -ForegroundColor Cyan
 
-Write-Host "`n按任意键打开浏览器..." -ForegroundColor Gray
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+# Write-Host "`n按任意键打开浏览器..." -ForegroundColor Gray
+# $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
-# 打开浏览器
-$url = "http://localhost:8080/$webappName"
-Start-Process $url
+# # 打开浏览器
+# $url = "http://localhost:8080/$webappName"
+# Start-Process $url
