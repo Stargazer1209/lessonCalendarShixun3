@@ -207,9 +207,7 @@
         <% 
                 }
             }
-        %>
-
-        <form id="loginForm" action="<%= request.getContextPath() %>/login" method="post">
+        %>        <form id="loginForm" action="LoginServlet" method="post">
             <div class="form-group">
                 <label for="username">用户名</label>
                 <input type="text" id="username" name="username" class="form-control" 
@@ -230,10 +228,8 @@
             </div>
 
             <button type="submit" class="btn" id="loginBtn">登录</button>
-        </form>
-
-        <div class="register-link">
-            还没有账户？<a href="<%= request.getContextPath() %>/register">立即注册</a>
+        </form>        <div class="register-link">
+            还没有账户？<a href="<%= request.getContextPath() %>/RegisterServlet">立即注册</a>
         </div>
     </div>
 

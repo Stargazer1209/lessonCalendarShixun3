@@ -337,12 +337,11 @@
                         </a>
 
                         <% if (isLoggedIn) { %>
-                            <!-- 已登录用户的导航菜单 -->
-                            <ul class="nav-links">
+                            <!-- 已登录用户的导航菜单 -->                            <ul class="nav-links">
                                 <li><a href="<%= request.getContextPath() %>/index.jsp">首页</a></li>
-                                <li><a href="<%= request.getContextPath() %>/view-schedule.jsp">我的课表</a></li>
-                                <li><a href="<%= request.getContextPath() %>/add-course.jsp">添加课程</a></li>
-                                <li><a href="<%= request.getContextPath() %>/course-list.jsp">课程管理</a></li>
+                                <li><a href="ViewScheduleServlet">我的课表</a></li>
+                                <li><a href="add-course.jsp">添加课程</a></li>
+                                <li><a href="ViewScheduleServlet">课程管理</a></li>
                             </ul>
 
                             <div class="nav-user">
@@ -365,17 +364,15 @@
                                         %>
                                         <%= roleDisplay %>
                                     </div>
-                                </div>
-                                <a href="<%= request.getContextPath() %>/logout" class="btn btn-danger"
-                                    style="margin-left: 15px;">退出</a>
+                                </div>                            <a href="<%= request.getContextPath() %>/LogoutServlet" class="btn btn-danger"
+                                style="margin-left: 15px;">退出</a>
                             </div>
-                            <% } else { %>
-                                <!-- 未登录用户的导航菜单 -->
-                                <ul class="nav-links">
-                                    <li><a href="<%= request.getContextPath() %>/index.jsp">首页</a></li>
-                                    <li><a href="<%= request.getContextPath() %>/login">登录</a></li>
-                                    <li><a href="<%= request.getContextPath() %>/register">注册</a></li>
-                                </ul>
+                            <% } else { %>                            <!-- 未登录用户的导航菜单 -->
+                            <ul class="nav-links">
+                                <li><a href="<%= request.getContextPath() %>/index.jsp">首页</a></li>
+                                <li><a href="<%= request.getContextPath() %>/LoginServlet">登录</a></li>
+                                <li><a href="<%= request.getContextPath() %>/RegisterServlet">注册</a></li>
+                            </ul>
                                 <% } %>
                     </div>
                 </nav>
@@ -398,7 +395,7 @@
                         <!-- 快速操作区域 -->
                         <div class="quick-actions">
                             <div class="action-card"
-                                onclick="location.href='<%= request.getContextPath() %>/view-schedule.jsp'">
+                                onclick="location.href='<%= request.getContextPath() %>/ViewScheduleServlet'">
                                 <div class="action-icon">📅</div>
                                 <div class="action-title">查看课表</div>
                                 <div class="action-desc">查看和管理您的完整课程安排</div>
@@ -454,14 +451,12 @@
                             <div class="login-prompt">
                                 <h2>🎓 欢迎使用课灵通</h2>
                                 <p>课灵通是一个智能化的课程表管理系统，帮助您轻松管理学习计划。</p>
-                                <p>支持课程添加、时间冲突检测、可视化课表显示等功能。</p>
-
-                                <div class="login-actions">
-                                    <a href="<%= request.getContextPath() %>/login" class="btn">立即登录</a>
-                                    <a href="<%= request.getContextPath() %>/register"
-                                        class="btn btn-secondary">免费注册</a>
-                                    <a href="#" class="btn btn-secondary" onclick="showSystemInfo()">系统信息</a>
-                                </div>
+                                <p>支持课程添加、时间冲突检测、可视化课表显示等功能。</p>                            <div class="login-actions">
+                                <a href="<%= request.getContextPath() %>/LoginServlet" class="btn">立即登录</a>
+                                <a href="<%= request.getContextPath() %>/RegisterServlet"
+                                    class="btn btn-secondary">免费注册</a>
+                                <a href="#" class="btn btn-secondary" onclick="showSystemInfo()">系统信息</a>
+                            </div>
 
                                 <!-- 系统信息区域（默认隐藏） -->
                                 <div id="systemInfo" style="display: none; margin-top: 30px; text-align: left;">

@@ -32,14 +32,14 @@
     <filter>
         <filter-name>AuthenticationFilter</filter-name>
         <filter-class>com.schedule.filter.AuthenticationFilter</filter-class>
-    </filter>
-    <filter-mapping>
+    </filter>    <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/add-course.jsp</url-pattern>
         <url-pattern>/edit-course.jsp</url-pattern>
         <url-pattern>/view-schedule.jsp</url-pattern>
         <url-pattern>/AddCourseServlet</url-pattern>
         <url-pattern>/UpdateCourseServlet</url-pattern>
+        <url-pattern>/EditCourseServlet</url-pattern>
         <url-pattern>/DeleteCourseServlet</url-pattern>
         <url-pattern>/ViewScheduleServlet</url-pattern>
     </filter-mapping>
@@ -87,7 +87,15 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateCourseServlet</servlet-name>
-        <url-pattern>/UpdateCourseServlet</url-pattern>
+        <url-pattern>/UpdateCourseServlet</url-pattern>    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditCourseServlet</servlet-name>
+        <servlet-class>com.schedule.servlet.EditCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditCourseServlet</servlet-name>
+        <url-pattern>/EditCourseServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>

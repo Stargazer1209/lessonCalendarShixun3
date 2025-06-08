@@ -214,9 +214,7 @@
             <div class="alert alert-danger">
                 <%= request.getAttribute("error") %>
             </div>
-        <% } %>
-
-        <form id="registerForm" action="<%= request.getContextPath() %>/register" method="post">
+        <% } %>        <form id="registerForm" action="RegisterServlet" method="post">
             <div class="form-group">
                 <label for="username">用户名 *</label>
                 <input type="text" id="username" name="username" class="form-control" 
@@ -268,10 +266,8 @@
             </div>
 
             <button type="submit" class="btn" id="registerBtn">注册</button>
-        </form>
-
-        <div class="login-link">
-            已有账户？<a href="<%= request.getContextPath() %>/login">立即登录</a>
+        </form>        <div class="login-link">
+            已有账户？<a href="<%= request.getContextPath() %>/LoginServlet">立即登录</a>
         </div>
     </div>
 

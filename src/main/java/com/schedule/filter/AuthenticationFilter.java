@@ -24,7 +24,7 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        logger.info("AuthenticationFilter初始化完成 (阶段一测试版本)");
+        logger.info("AuthenticationFilter初始化完成");
     }
 
     @Override
@@ -34,7 +34,7 @@ public class AuthenticationFilter implements Filter {
         String uri = httpRequest.getRequestURI();
         
         // 阶段一：仅记录请求，不执行实际验证
-        logger.info("阶段一测试版本 - 访问受保护资源: " + uri);
+        logger.info("用户 - 访问受保护资源: " + uri);
         
         // 允许所有请求通过（阶段一测试）
         chain.doFilter(request, response);

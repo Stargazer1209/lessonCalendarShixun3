@@ -2,13 +2,11 @@ package com.schedule.servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -61,7 +59,7 @@ public class LogoutServlet extends HttpServlet {
             newSession.setAttribute("logoutMessage", "您已成功退出登录");
             
             // 重定向到登录页面
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             
         } catch (Exception e) {
             // 异常处理
@@ -75,7 +73,7 @@ public class LogoutServlet extends HttpServlet {
             }
             
             // 重定向到登录页面
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
         }
     }
 }
