@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 /**
  * 用户实体类
  */
-public class User {
-    private int userId;
+public class User {    private int userId;
     private String username;
     private String password;
     private String email;
     private String fullName;
+    private String role;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     
@@ -59,13 +59,20 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    public String getFullName() {
+      public String getFullName() {
         return fullName;
     }
     
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+    
+    public String getRole() {
+        return role;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
     }
     
     public LocalDateTime getCreatedAt() {

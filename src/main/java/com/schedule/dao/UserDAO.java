@@ -13,8 +13,7 @@ import java.util.List;
  * 用户数据访问对象
  */
 public class UserDAO {
-    
-    /**
+      /**
      * 添加新用户
      */
     public boolean addUser(User user) {
@@ -76,8 +75,7 @@ public class UserDAO {
         
         return null;
     }
-    
-    /**
+      /**
      * 通过用户ID查找用户
      */
     public User findById(int userId) {
@@ -241,14 +239,14 @@ public class UserDAO {
     
     /**
      * 将ResultSet映射为User对象
-     */
-    private User mapResultSetToUser(ResultSet rs) throws SQLException {
+     */    private User mapResultSetToUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setUserId(rs.getInt("user_id"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password")); // 存储的是哈希后的密码
         user.setEmail(rs.getString("email"));
         user.setFullName(rs.getString("full_name"));
+        user.setRole(rs.getString("role"));
         
         Timestamp createdAt = rs.getTimestamp("created_at");
         if (createdAt != null) {

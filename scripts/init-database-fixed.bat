@@ -1,13 +1,13 @@
 @echo off
 chcp 65001 >nul
 echo =====================================
-echo 课灵通 - 数据库初始化 (MySQL 8.4.5)
+echo 数据库重新初始化 - 修复版本
 echo =====================================
 echo.
 
 rem 设置路径
 set MYSQL_PATH=D:\0PROGRAM\MYSQL\bin\mysql.exe
-set SQL_FILE=%~dp0..\database\init-mysql845.sql
+set SQL_FILE=%~dp0..\database\init-mysql845-fixed.sql
 
 echo 检查MySQL路径...
 if not exist "%MYSQL_PATH%" (

@@ -348,12 +348,23 @@
                             <div class="nav-user">
                                 <div class="user-avatar">
                                     <%= currentUser.getFullName().substring(0, 1).toUpperCase() %>
-                                </div>
-                                <div class="user-info">
+                                </div>                                <div class="user-info">
                                     <div class="user-name">
                                         <%= currentUser.getFullName() %>
+                                    </div>                                    <div class="user-role">
+                                        <%
+                                            String role = currentUser.getRole();
+                                            String roleDisplay = "未知角色";
+                                            if ("admin".equals(role)) {
+                                                roleDisplay = "管理员";
+                                            } else if ("teacher".equals(role)) {
+                                                roleDisplay = "教师";
+                                            } else if ("student".equals(role)) {
+                                                roleDisplay = "学生";
+                                            }
+                                        %>
+                                        <%= roleDisplay %>
                                     </div>
-                                    <div class="user-role">学生</div>
                                 </div>
                                 <a href="<%= request.getContextPath() %>/logout" class="btn btn-danger"
                                     style="margin-left: 15px;">退出</a>
