@@ -85,30 +85,8 @@ $port8080 = netstat -an | Select-String ":8080.*LISTENING"
 if ($port8080) {
     Write-Host "警告: 端口8080已被占用" -ForegroundColor Yellow
     Write-Host "现有占用: $($port8080 -join ', ')" -ForegroundColor Gray    
-    $choice = Read-Host "是否尝试停止现有Tomcat进程? (y/n)"
-    if ($choice -eq 'y' -or $choice -eq 'Y') {
-        try {
-            $shutdownBat = Join-Path $tomcatPath "bin\shutdown.bat"
-            if (Test-Path $shutdownBat) {
-                Write-Host "执行Tomcat关闭命令..." -ForegroundColor Gray
-                & cmd /c $shutdownBat
-                Start-Sleep -Seconds 3
-            }
-            # 强制结束java进程
-            Get-Process -Name java -ErrorAction SilentlyContinue | ForEach-Object {
-                if ($_.ProcessName -eq "java") {
-                    try {
-                        Stop-Process -Id $_.Id -Force -ErrorAction SilentlyContinue
-                    } catch {
-                        # 忽略错误
-                    }
-                }
-            }
-            Write-Host "✓ 现有Tomcat进程已停止" -ForegroundColor Green
-        } catch {
-            Write-Host "警告: 停止进程失败，可能需要手动停止" -ForegroundColor Yellow
-        }
-    }
+} else {
+    Write-Host "✓ 端口8080未被占用" -ForegroundColor Green
 }
 
 # 启动Tomcat
