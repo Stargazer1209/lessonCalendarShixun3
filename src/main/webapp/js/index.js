@@ -17,13 +17,64 @@ document.addEventListener('DOMContentLoaded', function() {
 /**
  * 加载用户统计数据
  */
+/**
+ * 加载用户统计数据
+ */
 function loadUserStats() {
-    // 这里可以通过AJAX从后端获取真实数据
-    // 目前使用模拟数据
-    document.getElementById('totalCourses').textContent = '12';
-    document.getElementById('thisWeekCourses').textContent = '8';
-    document.getElementById('todayCourses').textContent = '3';
-    document.getElementById('completionRate').textContent = '85';
+    const contextPath = document.body.getAttribute('data-context');
+    
+    // 显示加载状态
+    const statsElements = {
+        totalCourses: document.getElementById('totalCourses'),
+        thisWeekCourses: document.getElementById('thisWeekCourses'),
+        todayCourses: document.getElementById('todayCourses'),
+        completionRate: document.getElementById('completionRate')
+    };
+    
+    // 设置加载状态
+    Object.values(statsElements).forEach(element => {
+        if (element) element.textContent = '...';
+    });
+    
+    // 发送AJAX请求获取统计数据
+    fetch(contextPath + '/UserStatsServlet', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            // 更新统计数据
+            if (statsElements.totalCourses) {
+                statsElements.totalCourses.textContent = data.totalCourses || '0';
+            }
+            if (statsElements.thisWeekCourses) {
+                statsElements.thisWeekCourses.textContent = data.thisWeekCourses || '0';
+            }
+            if (statsElements.todayCourses) {
+                statsElements.todayCourses.textContent = data.todayCourses || '0';
+            }
+            if (statsElements.completionRate) {
+                statsElements.completionRate.textContent = data.completionRate || '0';
+            }
+        } else {
+            // 错误处理 - 显示默认值
+            console.error('获取统计数据失败:', data.message);
+            if (statsElements.totalCourses) statsElements.totalCourses.textContent = '0';
+            if (statsElements.thisWeekCourses) statsElements.thisWeekCourses.textContent = '0';
+            if (statsElements.todayCourses) statsElements.todayCourses.textContent = '0';
+            if (statsElements.completionRate) statsElements.completionRate.textContent = '0';
+        }
+    })
+    .catch(error => {
+        console.error('请求统计数据失败:', error);
+        // 网络错误时显示默认值
+        Object.values(statsElements).forEach(element => {
+            if (element) element.textContent = '0';
+        });
+    });
 }
 
 /**
