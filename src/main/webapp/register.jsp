@@ -29,6 +29,31 @@
             width: 100%;
             max-width: 450px;
             padding: 40px;
+            position: relative;
+        }
+
+        /* 返回首页链接样式 */
+        .back-home {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .back-home:hover {
+            color: #764ba2;
+            text-decoration: none;
+        }
+
+        .back-home::before {
+            content: "←";
+            margin-right: 5px;
+            font-weight: bold;
         }
 
         .register-header {
@@ -194,16 +219,32 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 480px) {
-            .register-container {
+         @media (max-width: 480px) {
+            .login-container {
                 margin: 20px;
                 padding: 30px 20px;
+            }
+            
+            /* 移动端调整返回链接位置 */
+            .back-home {
+                top: 10px;
+                left: 10px;
+                font-size: 13px;
+            }
+            
+            .login-header {
+                margin-top: 25px;
             }
         }
     </style>
 </head>
 <body>
     <div class="register-container">
+        <!-- 返回首页链接 -->
+        <a href="<%= request.getContextPath() %>/index.jsp" class="back-home" title="返回首页">
+            返回首页
+        </a>
+
         <div class="register-header">
             <h1>课灵通</h1>
             <p>创建您的新账户</p>

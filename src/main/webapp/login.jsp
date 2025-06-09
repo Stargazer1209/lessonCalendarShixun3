@@ -30,11 +30,38 @@
             width: 100%;
             max-width: 400px;
             padding: 40px;
+            position: relative; /* 添加相对定位 */
         }
 
+        /* 返回首页链接样式 */
+        .back-home {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .back-home:hover {
+            color: #764ba2;
+            text-decoration: none;
+        }
+
+        .back-home::before {
+            content: "←";
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        /* 调整登录头部的上边距，为返回链接留出空间 */
         .login-header {
             text-align: center;
             margin-bottom: 30px;
+            margin-top: 20px; /* 增加顶部边距 */
         }
 
         .login-header h1 {
@@ -162,16 +189,32 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 480px) {
+         @media (max-width: 480px) {
             .login-container {
                 margin: 20px;
                 padding: 30px 20px;
+            }
+            
+            /* 移动端调整返回链接位置 */
+            .back-home {
+                top: 10px;
+                left: 10px;
+                font-size: 13px;
+            }
+            
+            .login-header {
+                margin-top: 25px;
             }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
+        <!-- 返回首页链接 -->
+        <a href="<%= request.getContextPath() %>/index.jsp" class="back-home" title="返回首页">
+            返回首页
+        </a>
+
         <div class="login-header">
             <h1>课灵通</h1>
             <p>登录您的账户</p>

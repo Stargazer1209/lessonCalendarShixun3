@@ -27,12 +27,41 @@
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.jsp" class="nav-brand">课灵通</a>
-            <ul class="nav-menu">
-                <li><a href="index.jsp" class="nav-link">首页</a></li>                <li><a href="ViewScheduleServlet" class="nav-link">课程表</a></li>
-                <li><a href="add-course.jsp" class="nav-link active">添加课程</a></li>
-                <li><a href="<%= request.getContextPath() %>/LogoutServlet" class="nav-link">退出登录</a></li>
-            </ul>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="nav-brand">
+                🎓 课灵通
+            </a>
+            <ul class="nav-links">
+                    <li><a href="ViewScheduleServlet">查看课表</a></li>
+                    <li><a href="add-course.jsp">添加课程</a></li>
+                    <li><a href="edit-course.jsp">课程管理</a></li>
+                </ul>
+
+                <div class="nav-user">
+                    <div class="user-avatar" onclick="location.href='<%= request.getContextPath() %>/profile.jsp'">
+                        <%= currentUser.getFullName().substring(0, 1).toUpperCase() %>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name">
+                            <%= currentUser.getFullName() %>
+                        </div>
+                        <div class="user-role">
+                            <%
+                                String role = currentUser.getRole();
+                                String roleDisplay = "未知角色";
+                                if ("admin".equals(role)) {
+                                    roleDisplay = "管理员";
+                                } else if ("teacher".equals(role)) {
+                                    roleDisplay = "教师";
+                                } else if ("student".equals(role)) {
+                                    roleDisplay = "学生";
+                                }
+                            %>
+                            <%= roleDisplay %>
+                        </div>
+                    </div>
+                    <a href="<%= request.getContextPath() %>/LogoutServlet" class="btn btn-danger"
+                        style="margin-left: 15px;">退出</a>
+                </div>
         </div>
     </nav>
 

@@ -31,7 +31,7 @@
                 <ul class="nav-links">
                     <li><a href="ViewScheduleServlet">查看课表</a></li>
                     <li><a href="add-course.jsp">添加课程</a></li>
-                    <li><a href="ViewScheduleServlet">课程管理</a></li>
+                    <li><a href="edit-course.jsp">课程管理</a></li>
                 </ul>
 
                 <div class="nav-user">
@@ -120,7 +120,7 @@
                     <div class="action-desc">快速添加新的课程到您的课表</div>
                 </div>
 
-                <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/course-list.jsp'">
+                <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/edit-course.jsp'">
                     <div class="action-icon">📚</div>
                     <div class="action-title">课程管理</div>
                     <div class="action-desc">编辑、删除和管理您的所有课程</div>
