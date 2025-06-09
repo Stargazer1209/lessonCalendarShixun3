@@ -29,14 +29,13 @@
             <% if (isLoggedIn) { %>
                 <!-- 已登录用户的导航菜单 -->
                 <ul class="nav-links">
-                    <li><a href="<%= request.getContextPath() %>/index.jsp">首页</a></li>
-                    <li><a href="ViewScheduleServlet">我的课表</a></li>
+                    <li><a href="ViewScheduleServlet">查看课表</a></li>
                     <li><a href="add-course.jsp">添加课程</a></li>
                     <li><a href="ViewScheduleServlet">课程管理</a></li>
                 </ul>
 
                 <div class="nav-user">
-                    <div class="user-avatar">
+                    <div class="user-avatar" onclick="location.href='<%= request.getContextPath() %>/profile.jsp'">
                         <%= currentUser.getFullName().substring(0, 1).toUpperCase() %>
                     </div>
                     <div class="user-info">
@@ -64,7 +63,6 @@
             <% } else { %>
                 <!-- 未登录用户的导航菜单 -->
                 <ul class="nav-links">
-                    <li><a href="<%= request.getContextPath() %>/index.jsp">首页</a></li>
                     <li><a href="<%= request.getContextPath() %>/LoginServlet">登录</a></li>
                     <li><a href="<%= request.getContextPath() %>/RegisterServlet">注册</a></li>
                 </ul>
@@ -82,6 +80,29 @@
                 <div class="welcome-message">
                     <p>📅 今天是 <%= new java.text.SimpleDateFormat("yyyy年MM月dd日 EEEE").format(new java.util.Date()) %></p>
                     <p>🎯 让我们开始高效的学习计划管理吧！</p>
+                </div>
+            </div>
+
+            <!-- 统计信息区域 -->
+            <div class="stats-section">
+                <h2 class="stats-title">📊 数据统计</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalCourses">--</div>
+                        <div class="stat-label">总课程数</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="thisWeekCourses">--</div>
+                        <div class="stat-label">本周课程</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="todayCourses">--</div>
+                        <div class="stat-label">今日课程</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="completionRate">--%</div>
+                        <div class="stat-label">完成度</div>
+                    </div>
                 </div>
             </div>
 
@@ -109,29 +130,6 @@
                     <div class="action-icon">👤</div>
                     <div class="action-title">个人设置</div>
                     <div class="action-desc">修改个人信息和系统偏好设置</div>
-                </div>
-            </div>
-
-            <!-- 统计信息区域 -->
-            <div class="stats-section">
-                <h2 class="stats-title">📊 数据统计</h2>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number" id="totalCourses">--</div>
-                        <div class="stat-label">总课程数</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="thisWeekCourses">--</div>
-                        <div class="stat-label">本周课程</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="todayCourses">--</div>
-                        <div class="stat-label">今日课程</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="completionRate">--%</div>
-                        <div class="stat-label">完成度</div>
-                    </div>
                 </div>
             </div>
 
