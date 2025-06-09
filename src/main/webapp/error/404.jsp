@@ -33,7 +33,7 @@
         }
         
         .error-code {
-            font-size: 8rem;
+            font-size: 2rem;
             font-weight: bold;
             color: #4CAF50;
             margin-bottom: 20px;
@@ -163,7 +163,7 @@
             }
             
             .error-code {
-                font-size: 6rem;
+                font-size: 1.5rem;
             }
             
             .error-title {
