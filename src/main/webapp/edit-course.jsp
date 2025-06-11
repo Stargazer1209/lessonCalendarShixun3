@@ -8,11 +8,10 @@
         response.sendRedirect("LoginServlet");
         return;
     }
-    
-    // 获取课程信息
+      // 获取课程信息
     Course course = (Course) request.getAttribute("course");
     if (course == null) {
-        response.sendRedirect("ViewScheduleServlet?error=课程信息未找到");
+        response.sendRedirect("ViewScheduleServlet");
         return;
     }
     
@@ -314,10 +313,9 @@
 
     <!-- 主要内容 -->
     <div class="main-container">
-        <div class="form-container">
-            <h1 class="page-title">编辑课程</h1>
+        <div class="form-container">            <h1 class="page-title">编辑课程</h1>
             <div class="course-info">
-                课程ID: <%= course.getCourseId() %> | 创建时间: <%= course.getCreatedAt() != null ? course.getCreatedAt() : "未知" %>
+                课程ID: <%= course.getCourseId() %>
             </div>
             
             <!-- 显示消息 -->

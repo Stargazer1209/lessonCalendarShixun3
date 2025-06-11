@@ -29,9 +29,8 @@
             <% if (isLoggedIn) { %>
                 <!-- 已登录用户的导航菜单 -->
                 <ul class="nav-links">
-                    <li><a href="ViewScheduleServlet">查看课表</a></li>
                     <li><a href="add-course.jsp">添加课程</a></li>
-                    <li><a href="edit-course.jsp">课程管理</a></li>
+                    <li><a href="ViewScheduleServlet">课程管理</a></li>
                 </ul>
 
                 <div class="nav-user">
@@ -108,19 +107,18 @@
 
             <!-- 快速操作区域 -->
             <div class="quick-actions">
-                <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/ViewScheduleServlet'">
+                <!-- <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/ViewScheduleServlet'">
                     <div class="action-icon">📅</div>
                     <div class="action-title">查看课表</div>
                     <div class="action-desc">查看和管理您的完整课程安排</div>
-                </div>
-
+                </div> -->
                 <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/add-course.jsp'">
                     <div class="action-icon">➕</div>
                     <div class="action-title">添加课程</div>
                     <div class="action-desc">快速添加新的课程到您的课表</div>
                 </div>
 
-                <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/edit-course.jsp'">
+                <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/ViewScheduleServlet'">
                     <div class="action-icon">📚</div>
                     <div class="action-title">课程管理</div>
                     <div class="action-desc">编辑、删除和管理您的所有课程</div>

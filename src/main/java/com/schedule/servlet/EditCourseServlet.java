@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+// import java.net.URLEncoder;
 
 /**
  * 编辑课程Servlet
@@ -39,21 +40,20 @@ public class EditCourseServlet extends HttpServlet {
         if (currentUser == null) {
             response.sendRedirect("login.jsp");
             return;
-        }
-
-        // 获取课程ID参数
+        }        // 获取课程ID参数
         String courseIdStr = request.getParameter("id");
         if (courseIdStr == null || courseIdStr.trim().isEmpty()) {
             session.setAttribute("errorMessage", "缺少课程ID参数");
             response.sendRedirect("ViewScheduleServlet");
             return;
-        }        try {
+        }
+        
+        try {
             int courseId = Integer.parseInt(courseIdStr);
             
             // 获取课程信息
             Course course = courseDAO.findById(courseId);
-            
-            if (course == null) {
+              if (course == null) {
                 session.setAttribute("errorMessage", "课程不存在或已被删除");
                 response.sendRedirect("ViewScheduleServlet");
                 return;

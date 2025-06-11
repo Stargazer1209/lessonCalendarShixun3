@@ -31,9 +31,8 @@
                 🎓 课灵通
             </a>
             <ul class="nav-links">
-                    <li><a href="ViewScheduleServlet">查看课表</a></li>
                     <li><a href="add-course.jsp">添加课程</a></li>
-                    <li><a href="edit-course.jsp">课程管理</a></li>
+                    <li><a href="ViewScheduleServlet">课程管理</a></li>
                 </ul>
 
                 <div class="nav-user">
