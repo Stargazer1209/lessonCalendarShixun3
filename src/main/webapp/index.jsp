@@ -5,6 +5,12 @@
     // 检查用户登录状态
     User currentUser = (User) session.getAttribute("user");
     boolean isLoggedIn = (currentUser != null);
+
+    // 如果用户已登录且是管理员，重定向到管理员面板
+    if (isLoggedIn && "admin".equals(currentUser.getRole())) {
+        response.sendRedirect(request.getContextPath() + "/admin");
+        return;
+    }
 %>
 <!DOCTYPE html>
 <html lang="zh-CN">
