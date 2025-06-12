@@ -60,6 +60,13 @@ public class SecurityUtil {
     }
     
     /**
+     * 清理XSS攻击（sanitizeHtml的别名）
+     */
+    public static String cleanXSS(String input) {
+        return sanitizeHtml(input);
+    }
+    
+    /**
      * 验证用户名格式（只允许字母、数字、下划线，长度3-20）
      */
     public static boolean isValidUsername(String username) {

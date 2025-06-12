@@ -60,8 +60,8 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
 
-            // 待安全加固功能完成后取消注释 清理输入数据
-            // username = SecurityUtil.cleanXSS(username.trim());
+            // 清理输入数据
+            username = SecurityUtil.cleanXSS(username.trim());
             
             // 验证输入格式
             if (!SecurityUtil.isValidUsername(username)) {
@@ -92,12 +92,15 @@ public class LoginServlet extends HttpServlet {
                     // 设置更长的会话时间（7天）
                     session.setMaxInactiveInterval(7 * 24 * 60 * 60);
                 }
+                  // 记录登录日志
+                System.out.println("用户登录成功: " + username + ", 角色: " + user.getRole() + ", 时间: " + new java.util.Date());
                 
-                // 记录登录日志
-                System.out.println("用户登录成功: " + username + ", 时间: " + new java.util.Date());
-                
-                // 重定向到首页
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                // 根据用户角色重定向到不同页面
+                if ("admin".equals(user.getRole())) {
+                    response.sendRedirect(request.getContextPath() + "/admin");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                }
                 
             } else {
                 // 登录失败

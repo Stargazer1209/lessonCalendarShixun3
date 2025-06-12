@@ -59,10 +59,9 @@ public class RegisterServlet extends HttpServlet {
             }
 
             // 清理输入数据（XSS防护）
-            // 待安全加固功能完成后取消注释
-            // username = SecurityUtil.cleanXSS(username.trim());
-            // email = SecurityUtil.cleanXSS(email.trim());
-            // fullName = SecurityUtil.cleanXSS(fullName.trim());
+            username = SecurityUtil.cleanXSS(username.trim());
+            email = SecurityUtil.cleanXSS(email.trim());
+            fullName = SecurityUtil.cleanXSS(fullName.trim());
 
             // 检查用户名唯一性
             if (userDAO.isUsernameExists(username)) {
