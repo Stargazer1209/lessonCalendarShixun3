@@ -28,292 +28,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>编辑课程 - 课灵通</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Microsoft YaHei', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        /* 导航栏样式 */
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #667eea;
-            text-decoration: none;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: #667eea;
-            color: white;
-        }
-
-        /* 主要内容区域 */
-        .main-container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .form-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .page-title {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .course-info {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #e1e5e9;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .time-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .week-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c82333;
-            transform: translateY(-2px);
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        /* 消息样式 */
-        .alert {
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        /* 必填字段标记 */
-        .required {
-            color: #dc3545;
-        }
-
-        /* 帮助文本 */
-        .help-text {
-            font-size: 12px;
-            color: #6c757d;
-            margin-top: 5px;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            .form-container {
-                padding: 20px;
-                margin: 20px;
-            }
-
-            .time-inputs, .week-inputs {
-                grid-template-columns: 1fr;
-            }
-
-            .form-actions {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        /* 删除确认样式 */
-        .delete-section {
-            border-top: 1px solid #e1e5e9;
-            margin-top: 30px;
-            padding-top: 30px;
-        }
-
-        .delete-warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/index.css" charset="UTF-8">
 </head>
 <body>
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.jsp" class="nav-brand">课灵通</a>
-            <ul class="nav-menu">
-                <li><a href="index.jsp" class="nav-link">首页</a></li>                <li><a href="ViewScheduleServlet" class="nav-link">课程表</a></li>
-                <li><a href="add-course.jsp" class="nav-link">添加课程</a></li>
-                <li><a href="<%= request.getContextPath() %>/LogoutServlet" class="nav-link">退出登录</a></li>
-            </ul>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="nav-brand">
+                🎓 课灵通
+            </a>
+            <ul class="nav-links">
+                    <li><a href="add-course.jsp">添加课程</a></li>
+                    <li><a href="ViewScheduleServlet">课程管理</a></li>
+                </ul>
+
+                <div class="nav-user">
+                    <div class="user-avatar" onclick="location.href='<%= request.getContextPath() %>/profile.jsp'">
+                        <%= currentUser.getFullName().substring(0, 1).toUpperCase() %>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name">
+                            <%= currentUser.getFullName() %>
+                        </div>
+                        <div class="user-role">
+                            <%
+                                String role = currentUser.getRole();
+                                String roleDisplay = "未知角色";
+                                if ("admin".equals(role)) {
+                                    roleDisplay = "管理员";
+                                } else if ("teacher".equals(role)) {
+                                    roleDisplay = "教师";
+                                } else if ("student".equals(role)) {
+                                    roleDisplay = "学生";
+                                }
+                            %>
+                            <%= roleDisplay %>
+                        </div>
+                    </div>
+                    <a href="<%= request.getContextPath() %>/LogoutServlet" class="btn btn-danger"
+                        style="margin-left: 15px;">退出</a>
+                </div>
         </div>
     </nav>
 
     <!-- 主要内容 -->
     <div class="main-container">
         <div class="form-container">            <h1 class="page-title">编辑课程</h1>
+            <a href="<%= request.getContextPath() %>/ViewScheduleServlet" class="back-home" title="返回课程管理页面">
+                返回课程管理页面
+            </a>
             <div class="course-info">
                 课程ID: <%= course.getCourseId() %>
             </div>

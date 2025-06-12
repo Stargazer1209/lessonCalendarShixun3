@@ -69,6 +69,9 @@
         <div class="form-container">
             <h1 class="page-title">添加新课程</h1>
             
+            <a href="<%= request.getContextPath() %>/ViewScheduleServlet" class="back-home" title="返回课程管理页面">
+                返回课程管理页面
+            </a>
             <!-- 显示消息 -->
             <% if (successMessage != null && !successMessage.trim().isEmpty()) { %>
                 <div class="alert alert-success">
