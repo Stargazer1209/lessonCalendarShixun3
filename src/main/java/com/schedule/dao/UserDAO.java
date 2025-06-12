@@ -197,6 +197,49 @@ public class UserDAO {
     }
     
     /**
+     * 更新用户资料信息（包括密码）
+     * @param user 用户对象
+     * @param updatePassword 是否更新密码
+     * @return 是否更新成功
+     */
+    public boolean updateUserProfile(User user, boolean updatePassword) {
+        String sql;
+        if (updatePassword) {
+            sql = "UPDATE users SET email = ?, full_name = ?, password = ?, salt = ?, updated_at = ? WHERE user_id = ?";
+        } else {
+            sql = "UPDATE users SET email = ?, full_name = ?, updated_at = ? WHERE user_id = ?";
+        }
+        
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, user.getEmail());
+            pstmt.setString(2, user.getFullName());
+            
+            if (updatePassword) {
+                // 生成新的盐值和哈希密码
+                String salt = SecurityUtil.generateSalt();
+                String hashedPassword = SecurityUtil.hashPassword(user.getPassword(), salt);
+                
+                pstmt.setString(3, hashedPassword);
+                pstmt.setString(4, salt);
+                pstmt.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+                pstmt.setInt(6, user.getUserId());
+            } else {
+                pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+                pstmt.setInt(4, user.getUserId());
+            }
+            
+            return pstmt.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    /**
      * 删除用户
      */
     public boolean deleteUser(int userId) {
