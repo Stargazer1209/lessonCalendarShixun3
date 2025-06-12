@@ -89,15 +89,14 @@ public class RegisterServlet extends HttpServlet {
 
             // 注册用户
             boolean success = userDAO.addUser(newUser);
-            
-            if (success) {
+              if (success) {
                 // 注册成功
                 System.out.println("用户注册成功: " + username + ", 时间: " + new java.util.Date());
                 
                 // 设置成功消息并重定向到登录页面
                 HttpSession session = request.getSession(true);
                 session.setAttribute("successMessage", "注册成功！请使用您的用户名和密码登录。");
-                response.sendRedirect(request.getContextPath() + "/login");
+                response.sendRedirect(request.getContextPath() + "/LoginServlet");
                 
             } else {
                 // 注册失败

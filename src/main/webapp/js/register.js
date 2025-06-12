@@ -87,7 +87,8 @@ function validateEmail() {
         return false;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // 使用与后端一致的邮箱验证正则表达式
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(value)) {
         showError('email', '请输入有效的邮箱地址');
         return false;
@@ -128,6 +129,16 @@ function validatePassword() {
 
     if (value.length < 8) {
         showError('password', '密码至少需要8个字符');
+        strengthDiv.textContent = '';
+        return false;
+    }
+
+    // 检查是否包含字母和数字（与后端SecurityUtil.isValidPassword一致）
+    const hasLetter = /[a-zA-Z]/.test(value);
+    const hasNumber = /\d/.test(value);
+    
+    if (!hasLetter || !hasNumber) {
+        showError('password', '密码必须包含字母和数字');
         strengthDiv.textContent = '';
         return false;
     }

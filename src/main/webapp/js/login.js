@@ -26,13 +26,11 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     } else if (username.value.trim().length < 3) {
         showError('username', '用户名至少3个字符');
         isValid = false;
-    }
-
-    // 验证密码
+    }    // 验证密码
     if (!password.value) {
         showError('password', '请输入密码');
         isValid = false;
-    } else if (password.value.length < 6) {
+    } else if (password.value.length < 8) {
         showError('password', '密码至少8个字符, 包含字母和数字');
         isValid = false;
     }

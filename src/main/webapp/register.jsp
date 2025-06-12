@@ -50,12 +50,10 @@
                        placeholder="请输入您的真实姓名" required>
                 <div class="error-message" id="fullNameError"></div>
                 <div class="success-message" id="fullNameSuccess"></div>
-            </div>
-
-            <div class="form-group">
+            </div>            <div class="form-group">
                 <label for="password">密码 *</label>
                 <input type="password" id="password" name="password" class="form-control" 
-                       placeholder="至少6个字符" required>
+                       placeholder="至少8个字符，包含字母和数字" required>
                 <div class="error-message" id="passwordError"></div>
                 <div class="password-strength" id="passwordStrength"></div>
             </div>
