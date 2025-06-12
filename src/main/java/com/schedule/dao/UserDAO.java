@@ -281,6 +281,92 @@ public class UserDAO {
     }
     
     /**
+     * 管理员更新用户信息（包括角色、密码等）
+     * @param user 用户对象
+     * @param updatePassword 是否更新密码
+     * @return 是否更新成功
+     */
+    public boolean adminUpdateUser(User user, boolean updatePassword) {
+        String sql;
+        if (updatePassword) {
+            sql = "UPDATE users SET email = ?, full_name = ?, role = ?, password = ?, salt = ?, updated_at = ? WHERE user_id = ?";
+        } else {
+            sql = "UPDATE users SET email = ?, full_name = ?, role = ?, updated_at = ? WHERE user_id = ?";
+        }
+        
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, user.getEmail());
+            pstmt.setString(2, user.getFullName());
+            pstmt.setString(3, user.getRole());
+            
+            if (updatePassword) {
+                // 生成新的盐值和哈希密码
+                String salt = SecurityUtil.generateSalt();
+                String hashedPassword = SecurityUtil.hashPassword(user.getPassword(), salt);
+                
+                pstmt.setString(4, hashedPassword);
+                pstmt.setString(5, salt);
+                pstmt.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+                pstmt.setInt(7, user.getUserId());
+            } else {
+                pstmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+                pstmt.setInt(5, user.getUserId());
+            }
+            
+            return pstmt.executeUpdate() > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 管理员删除用户（会级联删除相关课程）
+     * @param userId 用户ID
+     * @return 是否删除成功
+     */
+    public boolean adminDeleteUser(int userId) {
+        // 由于设置了外键级联删除，删除用户时会自动删除其所有课程
+        return deleteUser(userId);
+    }
+    
+    /**
+     * 获取用户统计信息
+     * @return 用户统计数据
+     */
+    public java.util.Map<String, Integer> getUserStats() {
+        java.util.Map<String, Integer> stats = new java.util.HashMap<>();
+        String sql = "SELECT role, COUNT(*) as count FROM users GROUP BY role";
+        
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            
+            while (rs.next()) {
+                stats.put(rs.getString("role"), rs.getInt("count"));
+            }
+            
+            // 总用户数
+            String totalSql = "SELECT COUNT(*) as total FROM users";
+            try (PreparedStatement totalPstmt = conn.prepareStatement(totalSql);
+                 ResultSet totalRs = totalPstmt.executeQuery()) {
+                if (totalRs.next()) {
+                    stats.put("total", totalRs.getInt("total"));
+                }
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return stats;
+    }
+    
+    /**
      * 将ResultSet映射为User对象
      */    private User mapResultSetToUser(ResultSet rs) throws SQLException {
         User user = new User();

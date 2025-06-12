@@ -164,6 +164,43 @@
         <url-pattern>/ViewScheduleServlet</url-pattern>
     </servlet-mapping>
 
+    <!-- 管理员相关Servlet -->
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>com.schedule.servlet.AdminServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <servlet-class>com.schedule.servlet.AdminUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminUserServlet</servlet-name>
+        <url-pattern>/admin/users</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminCourseServlet</servlet-name>
+        <servlet-class>com.schedule.servlet.AdminCourseServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminCourseServlet</servlet-name>
+        <url-pattern>/admin/courses</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminStatsServlet</servlet-name>
+        <servlet-class>com.schedule.servlet.AdminStatsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminStatsServlet</servlet-name>
+        <url-pattern>/admin/stats</url-pattern>
+    </servlet-mapping>
+
     <!-- 会话配置 -->
     <session-config>
         <session-timeout>30</session-timeout>

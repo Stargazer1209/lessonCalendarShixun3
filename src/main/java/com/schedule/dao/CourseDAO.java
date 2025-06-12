@@ -521,6 +521,128 @@ public class CourseDAO {
     }
 
     /**
+     * 管理员获取所有课程
+     * @return 所有课程列表
+     */
+    public List<Course> getAllCourses() {
+        String sql = "SELECT c.*, u.username, u.full_name " +
+                "FROM courses c " +
+                "JOIN users u ON c.user_id = u.user_id " +
+                "ORDER BY u.username, c.day_of_week, c.start_time";
+        List<Course> courses = new ArrayList<>();
+
+        try (Connection conn = DatabaseUtil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Course course = mapResultSetToCourse(rs);
+                // 可以添加用户信息到course对象中，如果需要的话
+                courses.add(course);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return courses;
+    }
+    
+    /**
+     * 管理员删除指定用户的课程
+     * @param courseId 课程ID
+     * @return 删除成功返回true，否则返回false
+     */
+    public boolean adminDeleteCourse(int courseId) {
+        String sql = "DELETE FROM courses WHERE course_id = ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, courseId);
+            return pstmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    /**
+     * 管理员更新课程信息（不限制用户）
+     * @param course 课程对象
+     * @return 更新成功返回true，否则返回false
+     */
+    public boolean adminUpdateCourse(Course course) {
+        String sql = "UPDATE courses SET course_name = ?, instructor = ?, classroom = ?, " +
+                "day_of_week = ?, start_time = ?, end_time = ?, week_start = ?, week_end = ?, " +
+                "course_type = ?, credits = ?, description = ?, updated_at = CURRENT_TIMESTAMP " +
+                "WHERE course_id = ?";
+
+        try (Connection conn = DatabaseUtil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, course.getCourseName());
+            pstmt.setString(2, course.getInstructor());
+            pstmt.setString(3, course.getClassroom());
+            pstmt.setInt(4, course.getDayOfWeek());
+            pstmt.setTime(5, Time.valueOf(course.getStartTime()));
+            pstmt.setTime(6, Time.valueOf(course.getEndTime()));
+            pstmt.setInt(7, course.getWeekStart());
+            pstmt.setInt(8, course.getWeekEnd());
+            pstmt.setString(9, course.getCourseType());
+            pstmt.setInt(10, course.getCredits());
+            pstmt.setString(11, course.getDescription());
+            pstmt.setInt(12, course.getCourseId());
+
+            return pstmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+  
+    
+    /**
+     * 获取课程统计信息
+     * @return 课程统计数据
+     */
+    public java.util.Map<String, Object> getCourseStats() {
+        java.util.Map<String, Object> stats = new java.util.HashMap<>();
+        
+        // 总课程数
+        String totalSql = "SELECT COUNT(*) as total FROM courses";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(totalSql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                stats.put("totalCourses", rs.getInt("total"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        // 按课程类型统计
+        String typeSql = "SELECT course_type, COUNT(*) as count FROM courses WHERE course_type IS NOT NULL GROUP BY course_type";
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(typeSql);
+             ResultSet rs = pstmt.executeQuery()) {
+            java.util.Map<String, Integer> typeStats = new java.util.HashMap<>();
+            while (rs.next()) {
+                typeStats.put(rs.getString("course_type"), rs.getInt("count"));
+            }
+            stats.put("coursesByType", typeStats);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return stats;
+    }
+
+    /**
      * 将ResultSet映射为Course对象
      * 
      * @param rs ResultSet对象
