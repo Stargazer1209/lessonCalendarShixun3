@@ -203,7 +203,7 @@ com.schedule/
 @WebServlet("/api/courses")
 public class CourseAPIServlet extends HttpServlet {
     // GET /api/courses - 获取课程列表
-    // POST /api/courses - 添加新课程
+    // POST /api/courses - 添加课程
     // PUT /api/courses/{id} - 更新课程
     // DELETE /api/courses/{id} - 删除课程
 }

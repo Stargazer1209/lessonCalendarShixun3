@@ -108,6 +108,29 @@ body {
     color: white;
 }
 
+.back-home {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+}
+
+.back-home::before {
+    content: "←";
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.back-home:hover {
+    color: #764ba2;
+    text-decoration: none;
+}
+
 .btn {
     display: inline-block;
     padding: 12px 24px;

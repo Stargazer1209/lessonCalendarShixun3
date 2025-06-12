@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class CourseDAO {
     /**
-     * 添加新课程
+     * 添加课程
      * 
      * @param course 课程对象
      * @return 添加成功返回true，否则返回false

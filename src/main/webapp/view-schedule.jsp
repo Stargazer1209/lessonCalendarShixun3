@@ -32,7 +32,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的课程表 - 课灵通</title>
+    <title>课程管理 - 课灵通</title>
     <!-- 引入CSS文件 -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/index.css" charset="UTF-8">
 </head>
@@ -81,7 +81,7 @@
     <div class="container">
         <!-- 页面标题 -->
         <div class="header">
-            <h1>我的课程表</h1>
+            <h1>课程管理</h1>
             <p>管理您的课程安排，让学习更有条理</p>
         </div>
 
@@ -108,7 +108,7 @@
                 <% } %>
             </div>
             <a href="add-course.jsp" class="add-course-btn">
-                ➕ 添加新课程
+                ➕ 添加课程
             </a>
         </div>
 
@@ -210,26 +210,9 @@
                         ➕ 添加第一门课程
                     </a>
                 </div>
-            <% } %>
-        </div>
+            <% } %>        </div>
     </div>
 
-    <script>
-        // 确认删除功能
-        function confirmDelete(courseName) {
-            return confirm('确定要删除课程 "' + courseName + '" 吗？此操作不可撤销。');
-        }
-        
-        // 自动隐藏成功消息
-        setTimeout(function() {
-            const successAlert = document.querySelector('.alert.success');
-            if (successAlert) {
-                successAlert.style.opacity = '0';
-                setTimeout(function() {
-                    successAlert.remove();
-                }, 300);
-            }
-        }, 3000);
-    </script>
+    <script src="<%= request.getContextPath() %>/js/view-schedule.js"></script>
 </body>
 </html>
