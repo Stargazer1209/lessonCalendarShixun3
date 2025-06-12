@@ -139,14 +139,14 @@ public class UserStatsServlet extends HttpServlet {
     }
     
     /**
-     * 获取当前周次（简化计算，假设学期从第1周开始）
-     * 实际项目中可能需要配置学期开始日期
+     * 获取当前周次
+     * 实际项目中需要配置学期开始日期
      */
     private int getCurrentWeekNumber() {
-        // 这里简化处理，假设当前是第10周
+        // 这里简化处理
         // 实际应用中需要根据学期开始日期计算
         LocalDate today = LocalDate.now();
-        LocalDate semesterStart = LocalDate.of(2024, 9, 1); // 假设学期开始日期
+        LocalDate semesterStart = LocalDate.of(2025, 3, 1); // 假设学期开始日期
         
         long daysDiff = java.time.temporal.ChronoUnit.DAYS.between(semesterStart, today);
         int weekNumber = (int) (daysDiff / 7) + 1;

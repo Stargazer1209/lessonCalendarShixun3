@@ -107,11 +107,6 @@
 
             <!-- 快速操作区域 -->
             <div class="quick-actions">
-                <!-- <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/ViewScheduleServlet'">
-                    <div class="action-icon">📅</div>
-                    <div class="action-title">查看课表</div>
-                    <div class="action-desc">查看和管理您的完整课程安排</div>
-                </div> -->
                 <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/add-course.jsp'">
                     <div class="action-icon">➕</div>
                     <div class="action-title">添加课程</div>
