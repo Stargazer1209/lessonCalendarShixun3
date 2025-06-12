@@ -228,8 +228,8 @@
             <div class="delete-section">
                 <div class="delete-warning">
                     <strong>危险操作：</strong> 删除课程将永久移除所有相关数据，此操作无法撤销。
-                </div>
-                <div class="form-actions">                    <a href="DeleteCourseServlet?courseId=<%= course.getCourseId() %>" 
+                </div>                <div class="form-actions">
+                    <a href="DeleteCourseServlet?courseId=<%= course.getCourseId() %>" 
                        class="btn btn-danger"
                        onclick="return confirm('确定要删除课程「<%= course.getCourseName() %>」吗？此操作无法撤销！')">
                         删除课程

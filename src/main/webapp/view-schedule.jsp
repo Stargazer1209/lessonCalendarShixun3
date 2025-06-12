@@ -189,7 +189,7 @@
                                                         <a href="EditCourseServlet?id=<%= courseId %>" class="btn btn-edit">编辑</a>
                                                         <a href="DeleteCourseServlet?id=<%= courseId %>" 
                                                            class="btn btn-delete" 
-                                                           onclick="return confirm('确定要删除这门课程吗？')">删除</a>
+                                                           onclick="return confirmDelete('<%= courseName %>')">删除</a>
                                                     </div>
                                                 </div>
                                             <% } %>
