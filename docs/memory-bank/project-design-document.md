@@ -200,11 +200,4 @@ com.schedule/
 ### 10.3 API接口
 ```java
 // RESTful API设计示例
-@WebServlet("/api/courses")
-public class CourseAPIServlet extends HttpServlet {
-    // GET /api/courses - 获取课程列表
-    // POST /api/courses - 添加课程
-    // PUT /api/courses/{id} - 更新课程
-    // DELETE /api/courses/{id} - 删除课程
-}
 ```
