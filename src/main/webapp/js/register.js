@@ -1,5 +1,8 @@
 // 注册页面JavaScript功能
 
+// 防止重复提交的标记
+let isSubmitting = false;
+
 // 实时验证
 document.getElementById('username').addEventListener('input', validateUsername);
 document.getElementById('email').addEventListener('input', validateEmail);
@@ -7,9 +10,16 @@ document.getElementById('fullName').addEventListener('input', validateFullName);
 document.getElementById('password').addEventListener('input', validatePassword);
 document.getElementById('confirmPassword').addEventListener('input', validateConfirmPassword);
 
-// 表单提交验证
+// 表单提交验证和防重复提交
 document.getElementById('registerForm').addEventListener('submit', function(e) {
+    // 防止重复提交
+    if (isSubmitting) {
+        e.preventDefault();
+        return false;
+    }
+
     let isValid = true;
+    const registerBtn = document.getElementById('registerBtn');
 
     // 验证所有字段
     if (!validateUsername()) isValid = false;
@@ -27,11 +37,22 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
 
     if (!isValid) {
         e.preventDefault();
-    } else {
-        // 禁用提交按钮防止重复提交
-        document.getElementById('registerBtn').disabled = true;
-        document.getElementById('registerBtn').textContent = '注册中...';
+        return false;
     }
+
+    // 验证通过，设置提交状态
+    isSubmitting = true;
+    registerBtn.disabled = true;
+    registerBtn.textContent = '注册中...';
+
+    // 如果提交失败（比如网络错误），8秒后恢复按钮状态
+    setTimeout(function() {
+        if (isSubmitting) {
+            isSubmitting = false;
+            registerBtn.disabled = false;
+            registerBtn.textContent = '注册';
+        }
+    }, 8000);
 });
 
 function validateUsername() {
@@ -221,18 +242,6 @@ document.addEventListener('DOMContentLoaded', function() {
         usernameField.focus();
     }
 });
-
-// 防止重复提交
-let isSubmitting = false;
-const registerForm = document.getElementById('registerForm');
-if (registerForm) {
-    registerForm.addEventListener('submit', function(e) {
-        if (isSubmitting) {
-            e.preventDefault();
-            return false;
-        }
-    });
-}
 
 // 实时检查用户名可用性（模拟功能）
 let usernameCheckTimeout;

@@ -1,9 +1,19 @@
 // 登录页面JavaScript功能
 
-// 表单验证
+// 防止重复提交的标记
+let isSubmitting = false;
+
+// 表单验证和提交处理
 document.getElementById('loginForm').addEventListener('submit', function(e) {
+    // 防止重复提交
+    if (isSubmitting) {
+        e.preventDefault();
+        return false;
+    }
+
     const username = document.getElementById('username');
     const password = document.getElementById('password');
+    const loginBtn = document.getElementById('loginBtn');
     let isValid = true;
 
     // 清除之前的错误状态
@@ -29,11 +39,22 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
 
     if (!isValid) {
         e.preventDefault();
-    } else {
-        // 禁用提交按钮防止重复提交
-        document.getElementById('loginBtn').disabled = true;
-        document.getElementById('loginBtn').textContent = '登录中...';
+        return false;
     }
+
+    // 验证通过，设置提交状态
+    isSubmitting = true;
+    loginBtn.disabled = true;
+    loginBtn.textContent = '登录中...';
+
+    // 如果提交失败（比如网络错误），5秒后恢复按钮状态
+    setTimeout(function() {
+        if (isSubmitting) {
+            isSubmitting = false;
+            loginBtn.disabled = false;
+            loginBtn.textContent = '登录';
+        }
+    }, 5000);
 });
 
 function showError(fieldName, message) {
@@ -72,18 +93,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 支持回车键提交表单
-document.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        document.getElementById('loginForm').dispatchEvent(new Event('submit'));
-    }
-});
-
-// 防止重复提交
-let isSubmitting = false;
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    if (isSubmitting) {
-        e.preventDefault();
-        return false;
-    }
-});
+// 支持回车键提交表单 - 移除这个部分，因为HTML表单本身就支持回车提交
+// 删除原来可能冲突的回车键处理逻辑
