@@ -40,9 +40,7 @@ public class AdminCourseServlet extends HttpServlet {
         }
 
         String action = request.getParameter("action");
-        if (action == null) action = "list";
-
-        try {
+        if (action == null) action = "list";        try {
             switch (action) {
                 case "list":
                     listCourses(request, response);
@@ -55,6 +53,9 @@ public class AdminCourseServlet extends HttpServlet {
                     break;
                 case "userCourses":
                     viewUserCourses(request, response);
+                    break;
+                case "getCourseDetails":
+                    getCourseDetails(request, response);
                     break;
                 default:
                     listCourses(request, response);
@@ -408,5 +409,83 @@ public class AdminCourseServlet extends HttpServlet {
             session.setAttribute("errorMessage", "用户ID格式错误");
             response.sendRedirect(request.getContextPath() + "/admin/courses");
         }
+    }
+
+    /**
+     * 获取课程详情（AJAX接口）
+     */
+    private void getCourseDetails(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        
+        String courseIdStr = request.getParameter("courseId");
+        if (courseIdStr == null || courseIdStr.trim().isEmpty()) {
+            response.getWriter().write("{\"success\": false, \"message\": \"课程ID无效\"}");
+            return;
+        }
+
+        try {
+            int courseId = Integer.parseInt(courseIdStr);
+            Course course = courseDAO.findById(courseId);
+            if (course == null) {
+                response.getWriter().write("{\"success\": false, \"message\": \"课程不存在\"}");
+                return;
+            }
+
+            // 获取课程所属用户信息
+            User courseOwner = userDAO.findById(course.getUserId());
+
+            // 构建JSON响应
+            StringBuilder json = new StringBuilder();
+            json.append("{");
+            json.append("\"success\": true,");
+            json.append("\"course\": {");
+            json.append("\"courseId\": ").append(course.getCourseId()).append(",");
+            json.append("\"courseName\": \"").append(escapeJson(course.getCourseName())).append("\",");
+            json.append("\"instructor\": \"").append(escapeJson(course.getInstructor() != null ? course.getInstructor() : "")).append("\",");
+            json.append("\"classroom\": \"").append(escapeJson(course.getClassroom() != null ? course.getClassroom() : "")).append("\",");
+            json.append("\"dayOfWeek\": ").append(course.getDayOfWeek()).append(",");
+            json.append("\"startTime\": \"").append(course.getStartTime().toString()).append("\",");
+            json.append("\"endTime\": \"").append(course.getEndTime().toString()).append("\",");
+            json.append("\"weekStart\": ").append(course.getWeekStart()).append(",");
+            json.append("\"weekEnd\": ").append(course.getWeekEnd()).append(",");
+            json.append("\"courseType\": \"").append(escapeJson(course.getCourseType() != null ? course.getCourseType() : "")).append("\",");
+            json.append("\"credits\": ").append(course.getCredits()).append(",");
+            json.append("\"description\": \"").append(escapeJson(course.getDescription() != null ? course.getDescription() : "")).append("\"");
+            json.append("},");
+            
+            if (courseOwner != null) {
+                json.append("\"owner\": {");
+                json.append("\"userId\": ").append(courseOwner.getUserId()).append(",");
+                json.append("\"fullName\": \"").append(escapeJson(courseOwner.getFullName())).append("\",");
+                json.append("\"email\": \"").append(escapeJson(courseOwner.getEmail())).append("\"");
+                json.append("}");
+            } else {
+                json.append("\"owner\": null");
+            }
+            
+            json.append("}");
+
+            response.getWriter().write(json.toString());
+
+        } catch (NumberFormatException e) {
+            response.getWriter().write("{\"success\": false, \"message\": \"课程ID格式错误\"}");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().write("{\"success\": false, \"message\": \"获取课程信息失败\"}");
+        }
+    }
+
+    /**
+     * 转义JSON字符串
+     */
+    private String escapeJson(String str) {
+        if (str == null) return "";
+        return str.replace("\"", "\\\"")
+                  .replace("\\", "\\\\")
+                  .replace("\n", "\\n")
+                  .replace("\r", "\\r")
+                  .replace("\t", "\\t");
     }
 }
