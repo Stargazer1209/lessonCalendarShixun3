@@ -197,9 +197,9 @@
                 %>
                 <li>
                     <div class="nav-user">
-                        <div class="user-avatar" onclick="location.href='admin/users?action=edit&userId=<%= user.getUserId() %>'">
+                        <a href="<%= request.getContextPath() %>/admin/users?action=edit&userId=<%= user.getUserId() %>" class="user-avatar">
                             <%= user.getFullName().substring(0, 1).toUpperCase() %>
-                        </div>
+                        </a>
                         <div class="user-info">
                             <div class="user-name">
                                 <%= user.getFullName() %>

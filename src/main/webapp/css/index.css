@@ -755,12 +755,14 @@ body {
     height: 40px;
     border-radius: 50%;
     background: #4caf50;
-    display: flex;
+    display: inline-block, flex; /* 保持块级显示特性 */
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: bold;
     cursor: pointer;
+    text-decoration: none; /* 去除下划线 */
+    text-align: center;
 }
 
 .user-info {

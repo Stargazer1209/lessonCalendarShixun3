@@ -475,9 +475,9 @@
                 %>
                 <li>
                     <div class="user-item">
-                        <div class="user-avatar">
+                        <a href="<%= request.getContextPath() %>/admin/users?action=edit&userId=<%= user.getUserId() %>" class="user-avatar">
                             <%= user.getFullName().substring(0, 1).toUpperCase() %>
-                        </div>
+                        </a>
                         <div class="user-info">
                             <div class="user-name">
                                 <%= user.getFullName() %>
