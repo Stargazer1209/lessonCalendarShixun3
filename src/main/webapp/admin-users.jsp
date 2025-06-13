@@ -18,6 +18,7 @@
         h1 {
             text-align: center;
             color: white;
+            margin-bottom: 1.5rem;
         }
 
         table {
@@ -191,7 +192,7 @@
 
     <!-- 主要内容 -->
     <div class="main-content">
-        <h1>用户管理</h1>
+        <h1>👤 用户管理</h1>
 
         <!-- 成功/错误消息 -->
         <% if (session.getAttribute("successMessage") != null) { %>

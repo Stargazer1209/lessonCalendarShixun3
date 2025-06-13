@@ -121,7 +121,27 @@
         </div>
         <%
             }
-        %>        <!-- 统计信息区域 -->
+        %>        
+        
+        <!-- 快速操作区域 -->
+        <div class="quick-actions">
+            <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/admin/users'">
+                <div class="action-icon">👤</div>
+                <div class="action-title">用户管理</div>
+            </div>
+
+            <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/admin/courses'">
+                <div class="action-icon">📚</div>
+                <div class="action-title">课程管理</div>
+            </div>
+
+            <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/admin/stats'">
+                <div class="action-icon">📊</div>
+                <div class="action-title">统计报告</div>
+            </div>
+        </div>
+
+        <!-- 统计信息区域 -->
         <div class="stats-section">
             <%
                 Map<String, Integer> userStats = (Map<String, Integer>) request.getAttribute("userStats");
@@ -133,7 +153,7 @@
                     totalCourses = (Integer) courseStats.getOrDefault("totalCourses", 0);
                 }
             %>
-            <h2 class="stats-title">📊 数据统计</h2>
+            <h2 class="stats-title" onclick="location.href='<%= request.getContextPath() %>/admin/stats'" style="cursor: pointer;">📊 数据统计</h2>
             <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-number" id="totalUsers">
@@ -159,20 +179,6 @@
                     </div>
                     <div class="stat-label">教师数量</div>
                 </div>
-            </div>        </div>
-
-        <!-- 快速操作区域 -->
-        <div class="quick-actions">
-            <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/admin/users'">
-                <div class="action-title">用户管理</div>
-            </div>
-
-            <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/admin/courses'">
-                <div class="action-title">课程管理</div>
-            </div>
-
-            <div class="action-card" onclick="location.href='<%= request.getContextPath() %>/admin/stats'">
-                <div class="action-title">统计报告</div>
             </div>
         </div>
 

@@ -185,8 +185,8 @@
         }
 
         .highlight-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: white;
+            color: black;
             border-radius: 15px;
             padding: 2rem;
             margin-bottom: 2rem;
@@ -465,7 +465,7 @@
 
         <!-- 最近注册用户 -->
         <div class="recent-activity">
-            <div class="stats-title">🆕 最近注册用户</div>
+            <div class="stats-title">🌚 最近注册用户</div>
             <%
                 if (recentUsers != null && !recentUsers.isEmpty()) {
             %>

@@ -75,11 +75,12 @@
         }
 
         th {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: #a0b2ff;
             color: white;
             font-weight: 600;
             padding: 1rem;
             text-align: left;
+            border-radius: 8px;
         }
 
         td {
@@ -176,8 +177,8 @@
         }
 
         .stats-card {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
+            background: white;
+            color: black;
             padding: 1.5rem;
             border-radius: 10px;
             text-align: center;
