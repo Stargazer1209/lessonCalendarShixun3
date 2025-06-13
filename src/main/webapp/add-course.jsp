@@ -72,6 +72,25 @@
             <a href="<%= request.getContextPath() %>/ViewScheduleServlet" class="back-home" title="返回课程管理页面">
                 返回课程管理页面
             </a>
+
+            <!-- 二维码导入区域 -->
+            <div class="qr-import-section">
+                <h3>📱 从二维码导入课程</h3>
+                <form action="QRImportServlet" method="post" enctype="multipart/form-data" id="qrImportForm">
+                    <div class="file-input-group">
+                        <input type="file" id="qrImage" name="qrImage" accept="image/*" class="file-input">
+                        <label for="qrImage" class="file-label">
+                            📂 选择二维码图片
+                        </label>
+                        <button type="submit" class="btn btn-primary">导入课程</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="divider">
+                <span>或者手动添加</span>
+            </div>
+
             <!-- 显示消息 -->
             <% if (successMessage != null && !successMessage.trim().isEmpty()) { %>
                 <div class="alert alert-success">

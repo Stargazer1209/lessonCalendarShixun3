@@ -187,6 +187,7 @@
                                                         ⏰ <%= startTime %>-<%= endTime %>
                                                     </div>                                                    <div class="course-actions">
                                                         <a href="EditCourseServlet?id=<%= courseId %>" class="btn btn-edit">编辑</a>
+                                                        <button onclick="exportCourseQR(<%= courseId %>)" class="btn btn-qr">二维码</button>
                                                         <a href="DeleteCourseServlet?id=<%= courseId %>" 
                                                            class="btn btn-delete" 
                                                            onclick="return confirmDelete('<%= courseName %>')">删除</a>

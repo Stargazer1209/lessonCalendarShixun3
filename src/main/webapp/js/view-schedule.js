@@ -15,3 +15,17 @@ setTimeout(function() {
         }, 300);
     }
 }, 3000);
+
+/**
+ * 导出单个课程二维码
+ */
+function exportCourseQR(courseId) {
+    window.open(`QRCodeServlet?action=single&courseId=${courseId}`, '_blank');
+}
+
+/**
+ * 导出所有课程二维码
+ */
+function exportAllCoursesQR() {
+    window.open('QRCodeServlet?action=all', '_blank');
+}

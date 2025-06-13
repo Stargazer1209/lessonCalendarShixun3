@@ -17,7 +17,7 @@ import javax.servlet.http.Part;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.time.LocalTime;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +25,11 @@ import java.util.Map;
  * 二维码导入Servlet
  */
 @WebServlet("/QRImportServlet")
-@MultipartConfig
+@MultipartConfig(
+    maxFileSize = 5242880,      // 5MB
+    maxRequestSize = 10485760,  // 10MB
+    fileSizeThreshold = 1048576 // 1MB
+)
 public class QRImportServlet extends HttpServlet {
     
     private CourseDAO courseDAO;
@@ -49,9 +53,10 @@ public class QRImportServlet extends HttpServlet {
         }
         
         User currentUser = (User) session.getAttribute("user");
+        Part filePart = null;
         
         try {
-            Part filePart = request.getPart("qrImage");
+            filePart = request.getPart("qrImage");
             
             if (filePart == null || filePart.getSize() == 0) {
                 session.setAttribute("errorMessage", "请选择要导入的二维码图片");
@@ -59,8 +64,12 @@ public class QRImportServlet extends HttpServlet {
                 return;
             }
             
-            // 读取图片
-            BufferedImage image = ImageIO.read(filePart.getInputStream());
+            // 使用 try-with-resources 自动关闭流
+            BufferedImage image;
+            try (InputStream inputStream = filePart.getInputStream()) {
+                image = ImageIO.read(inputStream);
+            }
+            
             if (image == null) {
                 session.setAttribute("errorMessage", "无效的图片格式");
                 response.sendRedirect("add-course.jsp");
@@ -85,6 +94,16 @@ public class QRImportServlet extends HttpServlet {
             e.printStackTrace();
             session.setAttribute("errorMessage", "导入失败：" + e.getMessage());
             response.sendRedirect("add-course.jsp");
+        } finally {
+            // 手动清理临时文件
+            if (filePart != null) {
+                try {
+                    filePart.delete();
+                } catch (IOException e) {
+                    // 记录日志但不影响主流程
+                    System.err.println("清理临时文件失败: " + e.getMessage());
+                }
+            }
         }
     }
     
@@ -93,20 +112,7 @@ public class QRImportServlet extends HttpServlet {
      */
     private void importSingleCourse(String qrContent, User user, HttpSession session) throws Exception {
         Map<String, Object> courseData = CourseDataUtil.jsonToCourseData(qrContent);
-        
-        Course course = new Course();
-        course.setUserId(user.getUserId());
-        course.setCourseName((String) courseData.get("courseName"));
-        course.setInstructor((String) courseData.get("instructor"));
-        course.setClassroom((String) courseData.get("classroom"));
-        course.setDayOfWeek((Integer) courseData.get("dayOfWeek"));
-        course.setStartTime(LocalTime.parse((String) courseData.get("startTime")));
-        course.setEndTime(LocalTime.parse((String) courseData.get("endTime")));
-        course.setWeekStart((Integer) courseData.get("weekStart"));
-        course.setWeekEnd((Integer) courseData.get("weekEnd"));
-        course.setCourseType((String) courseData.get("courseType"));
-        course.setCredits((Integer) courseData.get("credits"));
-        course.setDescription((String) courseData.get("description"));
+        Course course = CourseDataUtil.mapToCourse(courseData, user.getUserId());
         
         // 检查时间冲突
         List<Course> conflicts = courseDAO.checkTimeConflict(course);
@@ -132,19 +138,7 @@ public class QRImportServlet extends HttpServlet {
         int conflictCount = 0;
         
         for (Map<String, Object> courseData : coursesData) {
-            Course course = new Course();
-            course.setUserId(user.getUserId());
-            course.setCourseName((String) courseData.get("courseName"));
-            course.setInstructor((String) courseData.get("instructor"));
-            course.setClassroom((String) courseData.get("classroom"));
-            course.setDayOfWeek((Integer) courseData.get("dayOfWeek"));
-            course.setStartTime(LocalTime.parse((String) courseData.get("startTime")));
-            course.setEndTime(LocalTime.parse((String) courseData.get("endTime")));
-            course.setWeekStart((Integer) courseData.get("weekStart"));
-            course.setWeekEnd((Integer) courseData.get("weekEnd"));
-            course.setCourseType((String) courseData.get("courseType"));
-            course.setCredits((Integer) courseData.get("credits"));
-            course.setDescription((String) courseData.get("description"));
+            Course course = CourseDataUtil.mapToCourse(courseData, user.getUserId());
             
             // 检查时间冲突
             List<Course> conflicts = courseDAO.checkTimeConflict(course);

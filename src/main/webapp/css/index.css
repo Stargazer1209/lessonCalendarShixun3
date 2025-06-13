@@ -13,6 +13,93 @@ body {
     color: #333;
 }
 
+/* 二维码导入区域 */
+.qr-import-section {
+    background: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.qr-import-section h3 {
+    margin: 0 0 15px 0;
+    color: #495057;
+}
+
+.file-input-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #6c757d;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.file-label:hover {
+    background: #5a6268;
+}
+
+.divider {
+    text-align: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #dee2e6;
+}
+
+.divider span {
+    background: #F8F7FD;
+    padding: 0 20px;
+    color: #6c757d;
+    position: relative;
+}
+
+/* 二维码按钮样式 */
+.btn-qr {
+    background: #6f42c1;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-qr:hover {
+    background: #5a2d91;
+}
+
+/* 操作按钮组 */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 .action-card {
     background: white;
     border-radius: 10px;
