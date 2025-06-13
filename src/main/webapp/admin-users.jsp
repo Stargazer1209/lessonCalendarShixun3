@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.schedule.model.User" %>
 <%
@@ -8,6 +8,7 @@
 %>
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,29 +24,29 @@
             width: 100%;
             border-collapse: collapse;
         }
-    
+
         th {
             background: #f8f9fa;
             font-weight: 600;
             color: #495057;
         }
-    
+
         th,
         td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #dee2e6;
         }
-    
+
         tr:hover {
             background: #f8f9fa;
         }
-    
+
         .action-buttons {
             display: flex;
             gap: 0.5rem;
         }
-    
+
         .btn-sm {
             padding: 0.25rem 0.5rem;
             font-size: 0.875rem;
@@ -54,18 +55,18 @@
             display: inline-block;
             transition: all 0.3s ease;
         }
-    
+
         .btn-warning {
             background: #ffc107;
             color: #ffffff;
             border: 1px solid #ffc107;
         }
-    
+
         .btn-warning:hover {
             background: #e0a800;
             color: #ffffff;
         }
-    
+
         .pagination {
             display: flex;
             justify-content: center;
@@ -73,7 +74,7 @@
             padding: 1rem;
             gap: 0.5rem;
         }
-    
+
         .pagination a {
             padding: 0.5rem 1rem;
             text-decoration: none;
@@ -82,53 +83,53 @@
             border-radius: 4px;
             transition: all 0.3s ease;
         }
-    
+
         .pagination a:hover,
         .pagination a.active {
             background: #667eea;
             color: white;
             border-color: #667eea;
         }
-    
+
         .role-admin {
             background: #e74c3c;
             color: white;
         }
-    
+
         .role-badge {
             padding: 4px 8px;
             border-radius: 4px;
             font-size: 0.8rem;
             font-weight: bold;
         }
-    
+
         .role-student {
             background: #27ae60;
             color: white;
         }
-    
+
         .role-teacher {
             background: #f39c12;
             color: white;
         }
-    
+
         .search-box {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-    
+
         .search-box input {
             padding: 0.5rem;
             border: none;
             border-radius: 4px;
             width: 250px;
         }
-    
+
         .table-container {
             overflow-x: auto;
         }
-    
+
         .table-header {
             background: #a0b2ff;
             color: white;
@@ -137,7 +138,7 @@
             justify-content: space-between;
             align-items: center;
         }
-    
+
         .users-table {
             background: white;
             border-radius: 10px;
@@ -182,12 +183,14 @@
                         <%= roleDisplay %>
                     </div>
                 </div>
-                <a href="<%= request.getContextPath() %>/LogoutServlet" class="btn btn-danger" style="margin-left: 15px;">退出</a>
+                <a href="<%= request.getContextPath() %>/LogoutServlet" class="btn btn-danger" 
+                   style="margin-left: 15px;">退出</a>
             </div>
         </div>
     </nav>
-    <div class="main-content">
 
+    <!-- 主要内容 -->
+    <div class="main-content">
         <h1>用户管理</h1>
 
         <!-- 成功/错误消息 -->
@@ -284,4 +287,5 @@
 
     <script charset="utf-8" src="<%= request.getContextPath() %>/js/admin-users.js"></script>
 </body>
+
 </html>
