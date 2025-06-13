@@ -117,7 +117,7 @@ public class UserStatsServlet extends HttpServlet {
     }
     
     /**
-     * 计算完成率（这里简化为活跃课程的百分比）
+     * 计算未结课率（这里简化为活跃课程的百分比）
      */
     private int calculateCompletionRate(List<Course> courses) {
         if (courses.isEmpty()) {

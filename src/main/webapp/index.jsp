@@ -106,7 +106,7 @@
                     </div>
                     <div class="stat-item">
                         <div class="stat-number" id="completionRate">--%</div>
-                        <div class="stat-label">完成度</div>
+                        <div class="stat-label">未结课率</div>
                     </div>
                 </div>
             </div>
