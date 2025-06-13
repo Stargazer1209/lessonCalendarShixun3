@@ -214,7 +214,7 @@
         <!-- 用户表格 -->
         <div class="users-table">
             <div class="table-header">
-                <h3>系统用户列表</h3>
+                <h3>用户列表</h3>
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="搜索用户名或邮箱..." 
                            onkeyup="filterUsers()">
