@@ -229,7 +229,7 @@
                         <!-- 提交按钮 -->
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary">保存修改</button>
-                            <a href="<%= request.getContextPath() %>/admin/users" class="btn btn-secondary">取消</a>
+                            <a href="javascript:history.back()" class="btn btn-secondary">取消</a>
                         </div>
                     </form>
 
