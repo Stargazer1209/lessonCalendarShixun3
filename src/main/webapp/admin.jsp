@@ -100,7 +100,8 @@
                 </div>
                 <a href="<%= request.getContextPath() %>/LogoutServlet" class="btn btn-danger" style="margin-left: 15px;">退出</a>
             </div>
-        </div>    </nav>
+        </div>
+    </nav>
 
     <div class="main-content">
         <div class="welcome-section">

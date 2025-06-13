@@ -35,7 +35,7 @@ public class AdminServlet extends HttpServlet {
         // 检查用户是否已登录且为管理员
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
 

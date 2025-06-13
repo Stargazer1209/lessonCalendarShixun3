@@ -35,7 +35,7 @@ public class AddCourseServlet extends HttpServlet {
         // 检查用户是否已登录
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
 
@@ -53,7 +53,7 @@ public class AddCourseServlet extends HttpServlet {
         // 检查用户是否已登录
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
 

@@ -36,7 +36,7 @@ public class DeleteCourseServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
             logger.warning("DeleteCourseServlet doGet - 用户未登录，重定向到登录页面");
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
         User currentUser = (User) session.getAttribute("user");
@@ -114,7 +114,7 @@ public class DeleteCourseServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
             logger.warning("DeleteCourseServlet doPost - 用户未登录，重定向到登录页面");
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
             return;
         }
 
